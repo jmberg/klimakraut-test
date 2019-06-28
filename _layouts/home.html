@@ -1,0 +1,25 @@
+---
+layout: default
+---
+
+<div class="home">
+  {%- if page.title -%}
+    <h1 class="page-heading">{{ page.title }}</h1>
+  {%- endif -%}
+
+  {{ content }}
+
+  {% for filter in site.filters %}
+  <input class="filter" id="{{ filter }}" type="checkbox" onchange="update();">{{ filter }}</input>
+  {% endfor %}
+
+  <div class="items">
+  {% for entry in site.sparen %}
+  <a class="item {% for tag in entry.tags %}filter-{{tag}} {% endfor %}"
+     href="{{ entry.url | relative_url }}"
+  {% if entry.img %}style="background-image:url({{ entry.img | prepend: '/assets/' | relative_url }});">{% else %}>{{ entry.title }}{% endif %}
+  <div class="effect" style="background: hsl(140, 100%, {{ entry.effect | minus: 1 | times: 20 }}%);">{{ entry.effect }}</div>
+  </a>
+  {% endfor %}
+  </div>
+</div>
